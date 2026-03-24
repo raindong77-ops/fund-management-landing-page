@@ -90,6 +90,22 @@
     max-height: 0;
   }
 
+  /* Marquee */
+  @keyframes bf-marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  .marquee-track {
+    display: flex;
+    align-items: center;
+    gap: 112px;
+    animation: bf-marquee 40s linear infinite;
+    width: max-content;
+  }
+  @media (max-width: 768px) {
+    .marquee-track { animation-duration: 28s; gap: 80px; }
+  }
+
   /* Stage accordion item backgrounds — active=white, inactive=surface-container-low */
   .stage-item { background-color: #f3f4f0; }
   .stage-item.active { background-color: #ffffff; }
@@ -139,7 +155,7 @@
 <main>
 
 <!-- ===== 1. HERO ===== -->
-<section class="relative overflow-hidden flex items-center" style="height: 100vh;">
+<section class="relative overflow-hidden flex items-center" style="height: calc(100vh - 80px); padding-bottom: 80px;">
   <div class="max-w-7xl mx-auto px-6 md:px-8 w-full">
     <div class="max-w-3xl fade-in text-left">
       <h1 class="font-headline text-5xl md:text-7xl font-extrabold tracking-tighter leading-[1.05] mb-8">
@@ -153,6 +169,37 @@
         <button class="px-8 py-4 bg-primary text-on-primary font-bold rounded-sm text-base transition-all duration-150 hover:-translate-y-px hover:shadow-[0_4px_14px_rgba(0,0,0,0.28)] active:translate-y-0 active:scale-95 active:shadow-none cursor-pointer">Book a Demo</button>
         <button class="px-8 py-4 bg-transparent border border-outline text-on-surface font-bold rounded-sm text-base transition-all duration-150 hover:bg-surface-container-high hover:-translate-y-px hover:shadow-sm active:translate-y-0 active:scale-95 active:shadow-none cursor-pointer">Contact Us</button>
       </div>
+    </div>
+  </div>
+
+  <!-- Bottom fade into page background -->
+  <div class="absolute bottom-0 left-0 w-full h-36 pointer-events-none" style="background: linear-gradient(to bottom, transparent, #f9faf5);"></div>
+
+  <!-- Logo Marquee -->
+  <div class="absolute bottom-0 left-0 w-full overflow-hidden pb-6 pt-4">
+    <!-- Left fade -->
+    <div class="absolute left-0 top-0 h-full w-28 z-10 pointer-events-none" style="background: linear-gradient(to right, #f9faf5, transparent);"></div>
+    <!-- Right fade -->
+    <div class="absolute right-0 top-0 h-full w-28 z-10 pointer-events-none" style="background: linear-gradient(to left, #f9faf5, transparent);"></div>
+
+    <div class="marquee-track">
+      <img src="SVG/logos/bay-point-law.png"                  alt="Bay Point Law"                  style="height:44px;width:auto;filter:grayscale(1) opacity(0.65);">
+      <img src="SVG/logos/chaffin-luhana.png"                 alt="Chaffin Luhana"                 style="height:32px;width:auto;filter:grayscale(1) opacity(0.65);">
+      <img src="SVG/logos/contingency-capital.png"            alt="Contingency Capital"            style="height:44px;width:auto;filter:grayscale(1) opacity(0.65);">
+      <img src="SVG/logos/armadillo.png"                      alt="Armadillo Litigation Funding"   style="height:32px;width:auto;filter:grayscale(1) opacity(0.65);">
+      <img src="SVG/logos/environmental-litigation-group.png" alt="Environmental Litigation Group" style="height:44px;width:auto;filter:grayscale(1) opacity(0.65);">
+      <img src="SVG/logos/awko-law.png"                       alt="AWKO Law"                       style="height:44px;width:auto;filter:grayscale(1) opacity(0.65);">
+      <img src="SVG/logos/kerberos-capital.png"               alt="Kerberos Capital Management"    style="height:32px;width:auto;filter:grayscale(1) opacity(0.65);">
+      <img src="SVG/logos/ventura-law.png"                    alt="Ventura Law"                    style="height:32px;width:auto;filter:grayscale(1) opacity(0.65);">
+      <!-- Duplicated for seamless loop -->
+      <img src="SVG/logos/bay-point-law.png"                  alt="Bay Point Law"                  style="height:44px;width:auto;filter:grayscale(1) opacity(0.65);">
+      <img src="SVG/logos/chaffin-luhana.png"                 alt="Chaffin Luhana"                 style="height:32px;width:auto;filter:grayscale(1) opacity(0.65);">
+      <img src="SVG/logos/contingency-capital.png"            alt="Contingency Capital"            style="height:44px;width:auto;filter:grayscale(1) opacity(0.65);">
+      <img src="SVG/logos/armadillo.png"                      alt="Armadillo Litigation Funding"   style="height:32px;width:auto;filter:grayscale(1) opacity(0.65);">
+      <img src="SVG/logos/environmental-litigation-group.png" alt="Environmental Litigation Group" style="height:44px;width:auto;filter:grayscale(1) opacity(0.65);">
+      <img src="SVG/logos/awko-law.png"                       alt="AWKO Law"                       style="height:44px;width:auto;filter:grayscale(1) opacity(0.65);">
+      <img src="SVG/logos/kerberos-capital.png"               alt="Kerberos Capital Management"    style="height:32px;width:auto;filter:grayscale(1) opacity(0.65);">
+      <img src="SVG/logos/ventura-law.png"                    alt="Ventura Law"                    style="height:32px;width:auto;filter:grayscale(1) opacity(0.65);">
     </div>
   </div>
 </section>
@@ -403,9 +450,9 @@
       </div>
       <!-- Visual -->
       <div class="w-full lg:w-1/2 flex items-center justify-center py-8">
-        <img src="Assets/Tailored Deal Recommendations.svg" class="s1-vis w-4/5 max-h-64 object-contain" alt="Tailored Deal Recommendations"/>
-        <img src="Assets/Direct Law Firm Sourcing.svg" class="s1-vis w-4/5 max-h-64 object-contain" alt="Direct Law Firm Sourcing" style="display:none"/>
-        <img src="Assets/First-Hand Legal News &amp; Resources.svg" class="s1-vis w-4/5 max-h-64 object-contain" alt="First-Hand Legal News &amp; Resources" style="display:none"/>
+        <img src="SVG/Tailored Deal Recommendations.svg" class="s1-vis h-72 w-auto object-contain" alt="Tailored Deal Recommendations"/>
+        <img src="SVG/Direct Law Firm Sourcing.svg" class="s1-vis h-72 w-auto object-contain" alt="Direct Law Firm Sourcing" style="display:none"/>
+        <img src="SVG/First-Hand Legal News &amp; Resources.svg" class="s1-vis h-52 w-auto object-contain" alt="First-Hand Legal News &amp; Resources" style="display:none"/>
       </div>
     </div>
   </div>
@@ -458,9 +505,9 @@
       </div>
       <!-- Visual -->
       <div class="w-full lg:w-1/2 flex items-center justify-center py-8">
-        <img src="Assets/Authentic Case Verification.svg" class="s2-vis w-4/5 max-h-64 object-contain" alt="Authentic Case Verification"/>
-        <img src="Assets/Case Risk Intelligence.svg" class="s2-vis w-4/5 max-h-64 object-contain" alt="Case Risk Intelligence" style="display:none"/>
-        <img src="Assets/Data-Backed Collateral Valuation.svg" class="s2-vis w-4/5 max-h-64 object-contain" alt="Data-Backed Collateral Valuation" style="display:none"/>
+        <img src="SVG/Authentic Case Verification.svg" class="s2-vis h-72 w-auto object-contain" alt="Authentic Case Verification"/>
+        <img src="SVG/Case Risk Intelligence.svg" class="s2-vis h-72 w-auto object-contain" alt="Case Risk Intelligence" style="display:none"/>
+        <img src="SVG/Data-Backed Collateral Valuation.svg" class="s2-vis h-72 w-auto object-contain" alt="Data-Backed Collateral Valuation" style="display:none"/>
       </div>
     </div>
   </div>
@@ -513,9 +560,9 @@
       </div>
       <!-- Visual -->
       <div class="w-full lg:w-1/2 flex items-center justify-center py-8">
-        <img src="Assets/Portfolio Performance Dashboard.svg" class="s3-vis w-4/5 max-h-64 object-contain" alt="Portfolio Performance Dashboard"/>
-        <img src="Assets/Streamlined reporting.svg" class="s3-vis w-4/5 max-h-64 object-contain" alt="Streamlined Reporting" style="display:none"/>
-        <img src="Assets/Customizable operations.svg" class="s3-vis w-4/5 max-h-64 object-contain" alt="Customizable Operations" style="display:none"/>
+        <img src="SVG/Portfolio Performance Dashboard.svg" class="s3-vis h-72 w-auto object-contain" alt="Portfolio Performance Dashboard"/>
+        <img src="SVG/Streamlined Reporting.svg" class="s3-vis h-72 w-auto object-contain" alt="Streamlined Reporting" style="display:none"/>
+        <img src="SVG/Customizable Operations.svg" class="s3-vis h-72 w-auto object-contain" alt="Customizable Operations" style="display:none"/>
       </div>
     </div>
   </div>
