@@ -90,6 +90,10 @@
     max-height: 0;
   }
 
+  /* Stage accordion item backgrounds — active=white, inactive=surface-container-low */
+  .stage-item { background-color: #f3f4f0; }
+  .stage-item.active { background-color: #ffffff; }
+
   /* Scroll fade-in */
   .fade-in {
     opacity: 0;
@@ -111,9 +115,9 @@
     <div class="flex items-center gap-8 md:gap-12">
       <span class="text-2xl font-headline font-extrabold tracking-tighter text-primary select-none">Bridgify</span>
       <div class="hidden md:flex gap-8 items-center">
-        <a href="#market" class="text-sm font-headline font-semibold tracking-tight text-primary border-b-2 border-primary pb-0.5 hover:opacity-70 transition-opacity">Market</a>
-        <a href="#platform" class="text-sm font-headline font-semibold tracking-tight text-on-surface-variant hover:text-primary transition-colors">Platform</a>
-        <a href="#compare" class="text-sm font-headline font-semibold tracking-tight text-on-surface-variant hover:text-primary transition-colors">Compare</a>
+        <a href="#market" class="nav-link text-sm font-headline font-semibold tracking-tight text-on-surface-variant hover:text-primary transition-colors border-b-2 border-transparent pb-0.5" data-section="market">Market</a>
+        <a href="#platform" class="nav-link text-sm font-headline font-semibold tracking-tight text-on-surface-variant hover:text-primary transition-colors border-b-2 border-transparent pb-0.5" data-section="platform">Platform</a>
+        <a href="#compare" class="nav-link text-sm font-headline font-semibold tracking-tight text-on-surface-variant hover:text-primary transition-colors border-b-2 border-transparent pb-0.5" data-section="compare">Compare</a>
       </div>
     </div>
     <!-- Desktop CTA + Mobile Toggle -->
@@ -284,8 +288,8 @@
         <div class="mb-10 w-16 h-16 flex items-center justify-center bg-primary text-on-primary flex-shrink-0">
           <span class="material-symbols-outlined text-2xl">search_insights</span>
         </div>
-        <h3 class="text-lg font-bold font-headline uppercase tracking-wide mb-8">Stage 1: Sourcing</h3>
-        <ul class="space-y-5 text-sm font-medium text-on-surface flex flex-col items-start w-fit mx-auto">
+        <h3 class="text-xl font-bold font-headline uppercase tracking-wide mb-8">Stage 1: Sourcing</h3>
+        <ul class="space-y-5 text-base font-medium text-on-surface flex flex-col items-start w-fit mx-auto">
           <li class="flex items-center gap-3">
             <span class="material-symbols-outlined icon-fill text-on-tertiary-container text-[20px]">check_circle</span>
             <span>Tailored Deal Recommendations</span>
@@ -306,8 +310,8 @@
         <div class="mb-10 w-16 h-16 flex items-center justify-center bg-primary text-on-primary flex-shrink-0">
           <span class="material-symbols-outlined text-2xl">analytics</span>
         </div>
-        <h3 class="text-lg font-bold font-headline uppercase tracking-wide mb-8">Stage 2: Underwriting</h3>
-        <ul class="space-y-5 text-sm font-medium text-on-surface flex flex-col items-start w-fit mx-auto">
+        <h3 class="text-xl font-bold font-headline uppercase tracking-wide mb-8">Stage 2: Underwriting</h3>
+        <ul class="space-y-5 text-base font-medium text-on-surface flex flex-col items-start w-fit mx-auto">
           <li class="flex items-center gap-3">
             <span class="material-symbols-outlined icon-fill text-on-tertiary-container text-[20px]">check_circle</span>
             <span>Authentic Case Verification</span>
@@ -328,8 +332,8 @@
         <div class="mb-10 w-16 h-16 flex items-center justify-center bg-primary text-on-primary flex-shrink-0">
           <span class="material-symbols-outlined text-2xl">account_balance</span>
         </div>
-        <h3 class="text-lg font-bold font-headline uppercase tracking-wide mb-8">Stage 3: Operations</h3>
-        <ul class="space-y-5 text-sm font-medium text-on-surface flex flex-col items-start w-fit mx-auto">
+        <h3 class="text-xl font-bold font-headline uppercase tracking-wide mb-8">Stage 3: Operations</h3>
+        <ul class="space-y-5 text-base font-medium text-on-surface flex flex-col items-start w-fit mx-auto">
           <li class="flex items-center gap-3">
             <span class="material-symbols-outlined icon-fill text-on-tertiary-container text-[20px]">check_circle</span>
             <span>Portfolio Performance Dashboard</span>
@@ -357,10 +361,10 @@
       <span class="px-2 py-0.5 bg-primary text-on-primary">Stage 1 — Sourcing</span>
       <span class="h-px bg-outline-variant/30 flex-grow"></span>
     </h4>
-    <div class="flex flex-col lg:flex-row items-stretch gap-8 md:gap-12">
+    <div class="flex flex-col lg:flex-row items-center gap-8 md:gap-12">
       <!-- Accordion -->
       <div class="w-full lg:w-1/2 flex flex-col gap-0" id="s1-accordion">
-        <div class="stage-item relative cursor-pointer p-6 md:p-8 bg-white border-b border-outline-variant/20 transition-colors" onclick="setStageItem(1,0)">
+        <div class="stage-item relative cursor-pointer p-6 md:p-8 border-b border-outline-variant/20 transition-colors" onclick="setStageItem(1,0)">
           <div class="flex items-center gap-3 mb-3">
             <span class="material-symbols-outlined text-lg text-primary">target</span>
             <h5 class="text-lg md:text-xl font-bold font-headline">Tailored Deal Recommendations</h5>
@@ -372,7 +376,7 @@
             <div class="inner-bar h-full bg-primary w-0"></div>
           </div>
         </div>
-        <div class="stage-item relative cursor-pointer p-6 md:p-8 bg-white border-b border-outline-variant/20 transition-colors" onclick="setStageItem(1,1)">
+        <div class="stage-item relative cursor-pointer p-6 md:p-8 border-b border-outline-variant/20 transition-colors" onclick="setStageItem(1,1)">
           <div class="flex items-center gap-3 mb-3">
             <span class="material-symbols-outlined text-lg text-primary">corporate_fare</span>
             <h5 class="text-lg md:text-xl font-bold font-headline">Direct Law Firm Sourcing</h5>
@@ -384,7 +388,7 @@
             <div class="inner-bar h-full bg-primary w-0"></div>
           </div>
         </div>
-        <div class="stage-item relative cursor-pointer p-6 md:p-8 bg-white border-b border-outline-variant/20 transition-colors" onclick="setStageItem(1,2)">
+        <div class="stage-item relative cursor-pointer p-6 md:p-8 border-b border-outline-variant/20 transition-colors" onclick="setStageItem(1,2)">
           <div class="flex items-center gap-3 mb-3">
             <span class="material-symbols-outlined text-lg text-primary">article</span>
             <h5 class="text-lg md:text-xl font-bold font-headline">First-Hand Legal News &amp; Resources</h5>
@@ -398,10 +402,10 @@
         </div>
       </div>
       <!-- Visual -->
-      <div class="w-full lg:w-1/2 h-[400px] bg-white shadow-inner flex items-center justify-center overflow-hidden" style="padding: 48px;">
-        <img src="Assets/Tailored Deal Recommendations.svg" class="s1-vis w-full h-full object-contain" alt="Tailored Deal Recommendations"/>
-        <img src="Assets/Direct Law Firm Sourcing.svg" class="s1-vis w-full h-full object-contain" alt="Direct Law Firm Sourcing" style="display:none"/>
-        <img src="Assets/First-Hand Legal News &amp; Resources.svg" class="s1-vis w-full h-full object-contain" alt="First-Hand Legal News &amp; Resources" style="display:none"/>
+      <div class="w-full lg:w-1/2 flex items-center justify-center py-8">
+        <img src="Assets/Tailored Deal Recommendations.svg" class="s1-vis w-4/5 max-h-64 object-contain" alt="Tailored Deal Recommendations"/>
+        <img src="Assets/Direct Law Firm Sourcing.svg" class="s1-vis w-4/5 max-h-64 object-contain" alt="Direct Law Firm Sourcing" style="display:none"/>
+        <img src="Assets/First-Hand Legal News &amp; Resources.svg" class="s1-vis w-4/5 max-h-64 object-contain" alt="First-Hand Legal News &amp; Resources" style="display:none"/>
       </div>
     </div>
   </div>
@@ -412,10 +416,10 @@
       <span class="px-2 py-0.5 bg-primary text-on-primary">Stage 2 — Underwriting</span>
       <span class="h-px bg-outline-variant/30 flex-grow"></span>
     </h4>
-    <div class="flex flex-col lg:flex-row-reverse items-stretch gap-8 md:gap-12">
+    <div class="flex flex-col lg:flex-row-reverse items-center gap-8 md:gap-12">
       <!-- Accordion -->
       <div class="w-full lg:w-1/2 flex flex-col gap-0" id="s2-accordion">
-        <div class="stage-item relative cursor-pointer p-6 md:p-8 bg-white border-b border-outline-variant/20 transition-colors" onclick="setStageItem(2,0)">
+        <div class="stage-item relative cursor-pointer p-6 md:p-8 border-b border-outline-variant/20 transition-colors" onclick="setStageItem(2,0)">
           <div class="flex items-center gap-3 mb-3">
             <span class="material-symbols-outlined text-lg text-primary">gavel</span>
             <h5 class="text-lg md:text-xl font-bold font-headline">Authentic Case Verification</h5>
@@ -427,7 +431,7 @@
             <div class="inner-bar h-full bg-primary w-0"></div>
           </div>
         </div>
-        <div class="stage-item relative cursor-pointer p-6 md:p-8 bg-white border-b border-outline-variant/20 transition-colors" onclick="setStageItem(2,1)">
+        <div class="stage-item relative cursor-pointer p-6 md:p-8 border-b border-outline-variant/20 transition-colors" onclick="setStageItem(2,1)">
           <div class="flex items-center gap-3 mb-3">
             <span class="material-symbols-outlined text-lg text-primary">monitoring</span>
             <h5 class="text-lg md:text-xl font-bold font-headline">Case Risk Intelligence</h5>
@@ -439,7 +443,7 @@
             <div class="inner-bar h-full bg-primary w-0"></div>
           </div>
         </div>
-        <div class="stage-item relative cursor-pointer p-6 md:p-8 bg-white border-b border-outline-variant/20 transition-colors" onclick="setStageItem(2,2)">
+        <div class="stage-item relative cursor-pointer p-6 md:p-8 border-b border-outline-variant/20 transition-colors" onclick="setStageItem(2,2)">
           <div class="flex items-center gap-3 mb-3">
             <span class="material-symbols-outlined text-lg text-primary">analytics</span>
             <h5 class="text-lg md:text-xl font-bold font-headline">Data-Backed Collateral Valuation</h5>
@@ -453,10 +457,10 @@
         </div>
       </div>
       <!-- Visual -->
-      <div class="w-full lg:w-1/2 h-[400px] bg-white shadow-inner flex items-center justify-center overflow-hidden" style="padding: 48px;">
-        <img src="Assets/Authentic Case Verification.svg" class="s2-vis w-full h-full object-contain" alt="Authentic Case Verification"/>
-        <img src="Assets/Case Risk Intelligence.svg" class="s2-vis w-full h-full object-contain" alt="Case Risk Intelligence" style="display:none"/>
-        <img src="Assets/Data-Backed Collateral Valuation.svg" class="s2-vis w-full h-full object-contain" alt="Data-Backed Collateral Valuation" style="display:none"/>
+      <div class="w-full lg:w-1/2 flex items-center justify-center py-8">
+        <img src="Assets/Authentic Case Verification.svg" class="s2-vis w-4/5 max-h-64 object-contain" alt="Authentic Case Verification"/>
+        <img src="Assets/Case Risk Intelligence.svg" class="s2-vis w-4/5 max-h-64 object-contain" alt="Case Risk Intelligence" style="display:none"/>
+        <img src="Assets/Data-Backed Collateral Valuation.svg" class="s2-vis w-4/5 max-h-64 object-contain" alt="Data-Backed Collateral Valuation" style="display:none"/>
       </div>
     </div>
   </div>
@@ -467,10 +471,10 @@
       <span class="px-2 py-0.5 bg-primary text-on-primary">Stage 3 — Operations</span>
       <span class="h-px bg-outline-variant/30 flex-grow"></span>
     </h4>
-    <div class="flex flex-col lg:flex-row items-stretch gap-8 md:gap-12">
+    <div class="flex flex-col lg:flex-row items-center gap-8 md:gap-12">
       <!-- Accordion -->
       <div class="w-full lg:w-1/2 flex flex-col gap-0" id="s3-accordion">
-        <div class="stage-item relative cursor-pointer p-6 md:p-8 bg-white border-b border-outline-variant/20 transition-colors" onclick="setStageItem(3,0)">
+        <div class="stage-item relative cursor-pointer p-6 md:p-8 border-b border-outline-variant/20 transition-colors" onclick="setStageItem(3,0)">
           <div class="flex items-center gap-3 mb-3">
             <span class="material-symbols-outlined text-lg text-primary">dashboard</span>
             <h5 class="text-lg md:text-xl font-bold font-headline">Portfolio Performance Dashboard</h5>
@@ -482,7 +486,7 @@
             <div class="inner-bar h-full bg-primary w-0"></div>
           </div>
         </div>
-        <div class="stage-item relative cursor-pointer p-6 md:p-8 bg-white border-b border-outline-variant/20 transition-colors" onclick="setStageItem(3,1)">
+        <div class="stage-item relative cursor-pointer p-6 md:p-8 border-b border-outline-variant/20 transition-colors" onclick="setStageItem(3,1)">
           <div class="flex items-center gap-3 mb-3">
             <span class="material-symbols-outlined text-lg text-primary">description</span>
             <h5 class="text-lg md:text-xl font-bold font-headline">Streamlined Reporting</h5>
@@ -494,7 +498,7 @@
             <div class="inner-bar h-full bg-primary w-0"></div>
           </div>
         </div>
-        <div class="stage-item relative cursor-pointer p-6 md:p-8 bg-white border-b border-outline-variant/20 transition-colors" onclick="setStageItem(3,2)">
+        <div class="stage-item relative cursor-pointer p-6 md:p-8 border-b border-outline-variant/20 transition-colors" onclick="setStageItem(3,2)">
           <div class="flex items-center gap-3 mb-3">
             <span class="material-symbols-outlined text-lg text-primary">settings_applications</span>
             <h5 class="text-lg md:text-xl font-bold font-headline">Customizable Operations</h5>
@@ -508,10 +512,10 @@
         </div>
       </div>
       <!-- Visual -->
-      <div class="w-full lg:w-1/2 h-[400px] bg-white shadow-inner flex items-center justify-center overflow-hidden" style="padding: 48px;">
-        <img src="Assets/Portfolio Performance Dashboard.svg" class="s3-vis w-full h-full object-contain" alt="Portfolio Performance Dashboard"/>
-        <img src="Assets/Streamlined reporting.svg" class="s3-vis w-full h-full object-contain" alt="Streamlined Reporting" style="display:none"/>
-        <img src="Assets/Customizable operations.svg" class="s3-vis w-full h-full object-contain" alt="Customizable Operations" style="display:none"/>
+      <div class="w-full lg:w-1/2 flex items-center justify-center py-8">
+        <img src="Assets/Portfolio Performance Dashboard.svg" class="s3-vis w-4/5 max-h-64 object-contain" alt="Portfolio Performance Dashboard"/>
+        <img src="Assets/Streamlined reporting.svg" class="s3-vis w-4/5 max-h-64 object-contain" alt="Streamlined Reporting" style="display:none"/>
+        <img src="Assets/Customizable operations.svg" class="s3-vis w-4/5 max-h-64 object-contain" alt="Customizable Operations" style="display:none"/>
       </div>
     </div>
   </div>
@@ -723,14 +727,14 @@ function setStageItem(stage, idx) {
     const bar = item.querySelector('.inner-bar');
 
     if (i === idx) {
-      item.classList.add('bg-surface-container-low/30');
+      item.classList.add('active');
       content.style.maxHeight = content.scrollHeight + 'px';
       bar.style.animation = 'none';
       bar.offsetHeight; // force reflow
       bar.className = 'inner-bar h-full bg-primary progress-bar-active';
       bar.style.animation = ''; // clear inline override so class animation plays
     } else {
-      item.classList.remove('bg-surface-container-low/30');
+      item.classList.remove('active');
       content.style.maxHeight = '0';
       bar.style.animation = 'none';
       bar.className = 'inner-bar h-full bg-primary w-0';
@@ -748,6 +752,28 @@ function setStageItem(stage, idx) {
     setStageItem(stage, (idx + 1) % items.length);
   }, 8000);
 }
+
+// ── Nav Scroll Active State ────────────────────────────────────
+const navLinks = document.querySelectorAll('.nav-link');
+const navSectionIds = ['market', 'platform', 'compare'];
+
+function updateNavActive() {
+  const scrollY = window.scrollY + 120;
+  let activeId = null;
+  navSectionIds.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && el.offsetTop <= scrollY) activeId = id;
+  });
+  navLinks.forEach(link => {
+    const on = link.dataset.section === activeId;
+    link.classList.toggle('border-primary', on);
+    link.classList.toggle('text-primary', on);
+    link.classList.toggle('border-transparent', !on);
+    link.classList.toggle('text-on-surface-variant', !on);
+  });
+}
+
+window.addEventListener('scroll', updateNavActive, { passive: true });
 
 // ── Scroll-triggered init ─────────────────────────────────────
 function observeOnce(el, callback, threshold = 0.25) {
