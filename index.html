@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Bridgify — The Ultimate Risk Management Tool for Litigation Finance</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          "surface": "#f9faf5",
+          "surface-container-low": "#f3f4f0",
+          "surface-container": "#edeeea",
+          "surface-container-high": "#e8e8e4",
+          "surface-container-highest": "#e2e3df",
+          "surface-container-lowest": "#ffffff",
+          "on-surface": "#1a1c1a",
+          "on-surface-variant": "#44474c",
+          "primary": "#000000",
+          "on-primary": "#ffffff",
+          "primary-container": "#101b30",
+          "outline": "#74777d",
+          "outline-variant": "#c4c6cc",
+          "tertiary-container": "#002114",
+          "on-tertiary-container": "#539072",
+          "error": "#ba1a1a",
+          "error-container": "#ffdad6",
+          "primary-fixed": "#d7e2ff",
+          "on-primary-fixed": "#101b30",
+        },
+        fontFamily: {
+          "headline": ["Manrope", "sans-serif"],
+          "body": ["Inter", "sans-serif"],
+        },
+        borderRadius: {
+          "sm": "0.125rem",
+          "DEFAULT": "0.25rem",
+          "lg": "0.5rem",
+        },
+      }
+    }
+  }
+</script>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; }
+  .font-headline { font-family: 'Manrope', sans-serif; }
+
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  }
+  .icon-fill {
+    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  }
+
+  @keyframes progress-fill {
+    from { width: 0%; }
+    to { width: 100%; }
+  }
+  .progress-bar-active {
+    height: 2px;
+    background-color: #000000;
+    width: 0%;
+    animation: progress-fill 8s linear forwards;
+  }
+  .problem-progress-bar {
+    height: 2px;
+    background-color: #000000;
+    width: 0%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+  .accordion-item.active .problem-progress-bar {
+    animation: progress-fill 8s linear forwards;
+  }
+
+  /* Mobile menu */
+  #mobile-menu { display: none; }
+  #mobile-menu.open { display: block; }
+
+  /* Smooth transitions */
+  .accordion-content {
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+    max-height: 0;
+  }
+
+  /* Scroll fade-in */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body class="bg-surface text-on-surface">
+
+<!-- ===== NAV ===== -->
+<nav class="w-full sticky top-0 z-50 bg-surface border-b border-outline-variant/20">
+  <div class="max-w-7xl mx-auto px-6 md:px-8 flex justify-between items-center h-20">
+    <!-- Logo + Desktop Links -->
+    <div class="flex items-center gap-8 md:gap-12">
+      <span class="text-2xl font-headline font-extrabold tracking-tighter text-primary select-none">Bridgify</span>
+      <div class="hidden md:flex gap-8 items-center">
+        <a href="#market" class="text-sm font-headline font-semibold tracking-tight text-primary border-b-2 border-primary pb-0.5 hover:opacity-70 transition-opacity">Market</a>
+        <a href="#platform" class="text-sm font-headline font-semibold tracking-tight text-on-surface-variant hover:text-primary transition-colors">Platform</a>
+        <a href="#compare" class="text-sm font-headline font-semibold tracking-tight text-on-surface-variant hover:text-primary transition-colors">Compare</a>
+      </div>
+    </div>
+    <!-- Desktop CTA + Mobile Toggle -->
+    <div class="flex items-center gap-4">
+      <button class="px-5 py-2.5 bg-primary text-on-primary text-sm font-semibold rounded-sm transition-all duration-150 hover:-translate-y-px hover:shadow-[0_4px_12px_rgba(0,0,0,0.25)] active:translate-y-0 active:scale-95 active:shadow-none cursor-pointer">Book a Demo</button>
+      <button id="mobile-menu-btn" class="md:hidden p-2 text-on-surface" aria-label="Toggle menu">
+        <span class="material-symbols-outlined" id="menu-icon">menu</span>
+      </button>
+    </div>
+  </div>
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="md:hidden bg-surface border-t border-outline-variant/20 px-6 py-4 flex flex-col gap-4">
+    <a href="#market" class="text-sm font-headline font-semibold text-primary">Market</a>
+    <a href="#platform" class="text-sm font-headline font-semibold text-on-surface-variant hover:text-primary transition-colors">Platform</a>
+    <a href="#compare" class="text-sm font-headline font-semibold text-on-surface-variant hover:text-primary transition-colors">Compare</a>
+  </div>
+</nav>
+
+<main>
+
+<!-- ===== 1. HERO ===== -->
+<section class="relative overflow-hidden flex items-center" style="height: 100vh;">
+  <div class="max-w-7xl mx-auto px-6 md:px-8 w-full">
+    <div class="max-w-3xl fade-in text-left">
+      <h1 class="font-headline text-5xl md:text-7xl font-extrabold tracking-tighter leading-[1.05] mb-8">
+        <span class="text-primary block">Deploy Capital With Confidence.</span>
+        <span class="text-on-surface-variant/50 block">Not Blind Trust.</span>
+      </h1>
+      <p class="text-lg md:text-xl text-on-surface-variant font-medium leading-relaxed mb-12 max-w-xl">
+        Bridgify controls risk across the full investment lifecycle — from sourcing to settlement.
+      </p>
+      <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+        <button class="px-8 py-4 bg-primary text-on-primary font-bold rounded-sm text-base transition-all duration-150 hover:-translate-y-px hover:shadow-[0_4px_14px_rgba(0,0,0,0.28)] active:translate-y-0 active:scale-95 active:shadow-none cursor-pointer">Book a Demo</button>
+        <button class="px-8 py-4 bg-transparent border border-outline text-on-surface font-bold rounded-sm text-base transition-all duration-150 hover:bg-surface-container-high hover:-translate-y-px hover:shadow-sm active:translate-y-0 active:scale-95 active:shadow-none cursor-pointer">Contact Us</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 2. MARKET SECTION ===== -->
+<section id="market" class="py-24 bg-surface-container-low">
+  <div class="max-w-7xl mx-auto px-6 md:px-8">
+    <div class="flex flex-col lg:flex-row gap-16 items-center">
+
+      <!-- Left: Text + stats -->
+      <div class="w-full lg:w-5/12 fade-in">
+        <span class="inline-block px-3 py-1 bg-primary text-on-primary text-[10px] font-bold tracking-[0.15em] uppercase mb-6 rounded-sm">The Market</span>
+        <h2 class="font-headline text-4xl md:text-5xl font-bold tracking-tight mb-8 leading-tight">Litigation Finance Is Booming.</h2>
+        <div class="grid grid-cols-1 gap-6 mb-10">
+          <div class="bg-white p-8 border-l-4 border-primary shadow-sm">
+            <div class="text-3xl md:text-4xl font-extrabold font-headline mb-2">$16B → $50B+</div>
+            <div class="text-on-surface-variant text-xs font-bold uppercase tracking-wider">Market expansion in one decade</div>
+          </div>
+          <div class="bg-white p-8 border-l-4 border-on-tertiary-container shadow-sm">
+            <div class="text-3xl md:text-4xl font-extrabold font-headline mb-2 text-on-tertiary-container">8–12%</div>
+            <div class="text-on-surface-variant text-xs font-bold uppercase tracking-wider">Annual organic growth</div>
+          </div>
+        </div>
+        <p class="text-base md:text-lg text-on-surface-variant leading-relaxed">Private credit is expanding fast — and litigation finance is leading it. To grow your fund tenfold without growing your team, you need better infrastructure.</p>
+      </div>
+
+      <!-- Right: Bar chart -->
+      <div class="w-full lg:w-7/12 fade-in">
+        <div class="bg-white p-6 md:p-10 shadow-sm h-[350px] md:h-[420px] flex flex-col justify-end">
+          <div class="flex-grow flex items-end gap-2 md:gap-4 px-2 md:px-4 relative mb-6">
+            <div class="flex-grow bg-surface-container-highest" style="height:30%"></div>
+            <div class="flex-grow bg-surface-container-highest" style="height:42%"></div>
+            <div class="flex-grow bg-surface-container-highest" style="height:55%"></div>
+            <div class="flex-grow bg-primary" style="height:68%"></div>
+            <div class="flex-grow bg-primary" style="height:82%"></div>
+            <div class="flex-grow bg-primary relative" style="height:100%">
+              <div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-on-tertiary-container text-white px-3 py-1 text-[10px] font-bold rounded-sm whitespace-nowrap shadow-md">Projected $50B+</div>
+            </div>
+          </div>
+          <div class="flex justify-between text-[10px] md:text-xs font-bold text-outline tracking-widest uppercase">
+            <span class="w-1/6 text-center">2025</span>
+            <span class="w-1/6 text-center">2027</span>
+            <span class="w-1/6 text-center">2029</span>
+            <span class="w-1/6 text-center">2031</span>
+            <span class="w-1/6 text-center">2033</span>
+            <span class="w-1/6 text-center">2035</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== 3. PROBLEM SECTION ===== -->
+<section class="py-24">
+  <div class="max-w-7xl mx-auto px-6 md:px-8">
+    <div class="mb-16 fade-in">
+      <h2 class="font-headline text-4xl md:text-5xl font-bold tracking-tight max-w-2xl leading-tight">
+        But the Operational Gap<br/>Puts Your Capital at Risk.
+      </h2>
+    </div>
+
+    <div id="problem-accordion" class="grid grid-cols-1 gap-0">
+      <!-- Item 0: GPs -->
+      <div class="accordion-item relative group transition-all duration-300 bg-surface-container-low border-b border-outline-variant/30 overflow-hidden" id="prob-0">
+        <div class="flex justify-between items-center cursor-pointer p-6 md:p-8 hover:bg-surface-container-low/60 transition-colors" onclick="setProblemPanel(0)">
+          <div class="flex items-center gap-6 md:gap-8">
+            <span class="font-headline font-bold text-lg md:text-xl text-outline">01</span>
+            <h3 class="text-xl md:text-2xl font-bold font-headline">For General Partners (GPs)</h3>
+          </div>
+          <span class="material-symbols-outlined text-3xl transition-transform duration-300 prob-icon">add</span>
+        </div>
+        <div class="accordion-content prob-content px-6 md:px-8">
+          <div class="flex gap-6 md:gap-8">
+            <span class="font-headline font-bold text-lg md:text-xl invisible select-none flex-shrink-0" aria-hidden="true">01</span>
+            <p class="text-on-surface-variant text-base md:text-lg leading-relaxed pb-8 max-w-[34rem]">Your portfolio has scaled. Your operational backbone hasn't. Teams are chasing data instead of analyzing it, LP reporting is a quarterly fire drill, and every manual check is a liability you haven't priced in.</p>
+          </div>
+        </div>
+        <div class="problem-progress-bar"></div>
+      </div>
+
+      <!-- Item 1: LPs -->
+      <div class="accordion-item relative group transition-all duration-300 bg-surface-container-low border-b border-outline-variant/30 overflow-hidden" id="prob-1">
+        <div class="flex justify-between items-center cursor-pointer p-6 md:p-8 hover:bg-surface-container-low/60 transition-colors" onclick="setProblemPanel(1)">
+          <div class="flex items-center gap-6 md:gap-8">
+            <span class="font-headline font-bold text-lg md:text-xl text-outline">02</span>
+            <h3 class="text-xl md:text-2xl font-bold font-headline">For Limited Partners (LPs)</h3>
+          </div>
+          <span class="material-symbols-outlined text-3xl transition-transform duration-300 prob-icon">add</span>
+        </div>
+        <div class="accordion-content prob-content px-6 md:px-8">
+          <div class="flex gap-6 md:gap-8">
+            <span class="font-headline font-bold text-lg md:text-xl invisible select-none flex-shrink-0" aria-hidden="true">01</span>
+            <p class="text-on-surface-variant text-base md:text-lg leading-relaxed pb-8 max-w-[34rem]">You're allocating to litigation finance for the return profile — but visibility into the underlying data is close to zero. You want a fund system backed by data you can track, verify, and trust.</p>
+          </div>
+        </div>
+        <div class="problem-progress-bar"></div>
+      </div>
+
+      <!-- Item 2: Law Firms -->
+      <div class="accordion-item relative group transition-all duration-300 bg-surface-container-low border-b border-outline-variant/30 overflow-hidden" id="prob-2">
+        <div class="flex justify-between items-center cursor-pointer p-6 md:p-8 hover:bg-surface-container-low/60 transition-colors" onclick="setProblemPanel(2)">
+          <div class="flex items-center gap-6 md:gap-8">
+            <span class="font-headline font-bold text-lg md:text-xl text-outline">03</span>
+            <h3 class="text-xl md:text-2xl font-bold font-headline">For Law Firms</h3>
+          </div>
+          <span class="material-symbols-outlined text-3xl transition-transform duration-300 prob-icon">add</span>
+        </div>
+        <div class="accordion-content prob-content px-6 md:px-8">
+          <div class="flex gap-6 md:gap-8">
+            <span class="font-headline font-bold text-lg md:text-xl invisible select-none flex-shrink-0" aria-hidden="true">01</span>
+            <p class="text-on-surface-variant text-base md:text-lg leading-relaxed pb-8 max-w-[34rem]">You're fielding more due diligence requests than ever, each with different data requirements. Preparing a financing package still takes weeks. You need to close that gap — without the cost of hiring a full back office.</p>
+          </div>
+        </div>
+        <div class="problem-progress-bar"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 4. PLATFORM OVERVIEW ===== -->
+<section id="platform" class="py-24 bg-surface-container-low">
+  <div class="max-w-7xl mx-auto px-6 md:px-8">
+    <div class="text-center mb-16 fade-in">
+      <div class="inline-block px-4 py-1.5 bg-primary text-on-primary text-[11px] font-bold tracking-[0.2em] uppercase mb-8 rounded-sm">The Platform</div>
+      <h2 class="font-headline text-5xl md:text-6xl font-bold tracking-tight">End-to-End Risk Control.</h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- Card 1 -->
+      <div class="bg-white p-10 md:p-12 flex flex-col items-center text-center shadow-sm fade-in">
+        <div class="mb-10 w-16 h-16 flex items-center justify-center bg-primary text-on-primary flex-shrink-0">
+          <span class="material-symbols-outlined text-2xl">search_insights</span>
+        </div>
+        <h3 class="text-lg font-bold font-headline uppercase tracking-wide mb-8">Stage 1: Sourcing</h3>
+        <ul class="space-y-5 text-sm font-medium text-on-surface flex flex-col items-start w-fit mx-auto">
+          <li class="flex items-center gap-3">
+            <span class="material-symbols-outlined icon-fill text-on-tertiary-container text-[20px]">check_circle</span>
+            <span>Tailored Deal Recommendations</span>
+          </li>
+          <li class="flex items-center gap-3">
+            <span class="material-symbols-outlined icon-fill text-on-tertiary-container text-[20px]">check_circle</span>
+            <span>Direct Law Firm Sourcing</span>
+          </li>
+          <li class="flex items-center gap-3">
+            <span class="material-symbols-outlined icon-fill text-on-tertiary-container text-[20px]">check_circle</span>
+            <span>First-Hand Legal News &amp; Resources</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="bg-white p-10 md:p-12 flex flex-col items-center text-center shadow-sm fade-in">
+        <div class="mb-10 w-16 h-16 flex items-center justify-center bg-primary text-on-primary flex-shrink-0">
+          <span class="material-symbols-outlined text-2xl">analytics</span>
+        </div>
+        <h3 class="text-lg font-bold font-headline uppercase tracking-wide mb-8">Stage 2: Underwriting</h3>
+        <ul class="space-y-5 text-sm font-medium text-on-surface flex flex-col items-start w-fit mx-auto">
+          <li class="flex items-center gap-3">
+            <span class="material-symbols-outlined icon-fill text-on-tertiary-container text-[20px]">check_circle</span>
+            <span>Authentic Case Verification</span>
+          </li>
+          <li class="flex items-center gap-3">
+            <span class="material-symbols-outlined icon-fill text-on-tertiary-container text-[20px]">check_circle</span>
+            <span>Case Risk Intelligence</span>
+          </li>
+          <li class="flex items-center gap-3">
+            <span class="material-symbols-outlined icon-fill text-on-tertiary-container text-[20px]">check_circle</span>
+            <span>Data-Backed Collateral Valuation</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="bg-white p-10 md:p-12 flex flex-col items-center text-center shadow-sm fade-in">
+        <div class="mb-10 w-16 h-16 flex items-center justify-center bg-primary text-on-primary flex-shrink-0">
+          <span class="material-symbols-outlined text-2xl">account_balance</span>
+        </div>
+        <h3 class="text-lg font-bold font-headline uppercase tracking-wide mb-8">Stage 3: Operations</h3>
+        <ul class="space-y-5 text-sm font-medium text-on-surface flex flex-col items-start w-fit mx-auto">
+          <li class="flex items-center gap-3">
+            <span class="material-symbols-outlined icon-fill text-on-tertiary-container text-[20px]">check_circle</span>
+            <span>Portfolio Performance Dashboard</span>
+          </li>
+          <li class="flex items-center gap-3">
+            <span class="material-symbols-outlined icon-fill text-on-tertiary-container text-[20px]">check_circle</span>
+            <span>Streamlined Reporting</span>
+          </li>
+          <li class="flex items-center gap-3">
+            <span class="material-symbols-outlined icon-fill text-on-tertiary-container text-[20px]">check_circle</span>
+            <span>Customizable Operations</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 5. FEATURE DEEP-DIVE ROWS ===== -->
+<section class="bg-surface-container-low overflow-hidden">
+
+  <!-- Stage 1 — Sourcing (Accordion LEFT, Visual RIGHT) -->
+  <div class="max-w-7xl mx-auto px-6 md:px-8 py-20 md:py-24 border-t border-outline-variant/20">
+    <h4 class="font-headline text-xs font-bold tracking-widest uppercase text-outline mb-12 flex items-center gap-4">
+      <span class="px-2 py-0.5 bg-primary text-on-primary">Stage 1 — Sourcing</span>
+      <span class="h-px bg-outline-variant/30 flex-grow"></span>
+    </h4>
+    <div class="flex flex-col lg:flex-row items-stretch gap-8 md:gap-12">
+      <!-- Accordion -->
+      <div class="w-full lg:w-1/2 flex flex-col gap-0" id="s1-accordion">
+        <div class="stage-item relative cursor-pointer p-6 md:p-8 bg-white border-b border-outline-variant/20 transition-colors" onclick="setStageItem(1,0)">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="material-symbols-outlined text-lg text-primary">target</span>
+            <h5 class="text-lg md:text-xl font-bold font-headline">Tailored Deal Recommendations</h5>
+          </div>
+          <div class="stage-content accordion-content">
+            <p class="text-on-surface-variant text-sm md:text-base leading-relaxed pb-2">Recommendations based on your fund's budget, strategy, and risk appetite — informed by experienced litigation funders and lawyers.</p>
+          </div>
+          <div class="stage-bar h-[2px] w-full bg-outline-variant/20 absolute bottom-0 left-0 overflow-hidden">
+            <div class="inner-bar h-full bg-primary w-0"></div>
+          </div>
+        </div>
+        <div class="stage-item relative cursor-pointer p-6 md:p-8 bg-white border-b border-outline-variant/20 transition-colors" onclick="setStageItem(1,1)">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="material-symbols-outlined text-lg text-primary">corporate_fare</span>
+            <h5 class="text-lg md:text-xl font-bold font-headline">Direct Law Firm Sourcing</h5>
+          </div>
+          <div class="stage-content accordion-content">
+            <p class="text-on-surface-variant text-sm md:text-base leading-relaxed pb-2">Active relationships with top firms. Exclusive case pipelines delivered before they reach the open market.</p>
+          </div>
+          <div class="stage-bar h-[2px] w-full bg-outline-variant/20 absolute bottom-0 left-0 overflow-hidden">
+            <div class="inner-bar h-full bg-primary w-0"></div>
+          </div>
+        </div>
+        <div class="stage-item relative cursor-pointer p-6 md:p-8 bg-white border-b border-outline-variant/20 transition-colors" onclick="setStageItem(1,2)">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="material-symbols-outlined text-lg text-primary">article</span>
+            <h5 class="text-lg md:text-xl font-bold font-headline">First-Hand Legal News &amp; Resources</h5>
+          </div>
+          <div class="stage-content accordion-content">
+            <p class="text-on-surface-variant text-sm md:text-base leading-relaxed pb-2">Real-time case status updates and proprietary market intelligence — not scraped data.</p>
+          </div>
+          <div class="stage-bar h-[2px] w-full bg-outline-variant/20 absolute bottom-0 left-0 overflow-hidden">
+            <div class="inner-bar h-full bg-primary w-0"></div>
+          </div>
+        </div>
+      </div>
+      <!-- Visual -->
+      <div class="w-full lg:w-1/2 h-[400px] bg-white shadow-inner flex items-center justify-center overflow-hidden" style="padding: 48px;">
+        <img src="Assets/Tailored Deal Recommendations.svg" class="s1-vis w-full h-full object-contain" alt="Tailored Deal Recommendations"/>
+        <img src="Assets/Direct Law Firm Sourcing.svg" class="s1-vis w-full h-full object-contain" alt="Direct Law Firm Sourcing" style="display:none"/>
+        <img src="Assets/First-Hand Legal News &amp; Resources.svg" class="s1-vis w-full h-full object-contain" alt="First-Hand Legal News &amp; Resources" style="display:none"/>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stage 2 — Underwriting (Visual LEFT, Accordion RIGHT) -->
+  <div class="max-w-7xl mx-auto px-6 md:px-8 py-20 md:py-24 border-t border-outline-variant/20">
+    <h4 class="font-headline text-xs font-bold tracking-widest uppercase text-outline mb-12 flex items-center gap-4">
+      <span class="px-2 py-0.5 bg-primary text-on-primary">Stage 2 — Underwriting</span>
+      <span class="h-px bg-outline-variant/30 flex-grow"></span>
+    </h4>
+    <div class="flex flex-col lg:flex-row-reverse items-stretch gap-8 md:gap-12">
+      <!-- Accordion -->
+      <div class="w-full lg:w-1/2 flex flex-col gap-0" id="s2-accordion">
+        <div class="stage-item relative cursor-pointer p-6 md:p-8 bg-white border-b border-outline-variant/20 transition-colors" onclick="setStageItem(2,0)">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="material-symbols-outlined text-lg text-primary">gavel</span>
+            <h5 class="text-lg md:text-xl font-bold font-headline">Authentic Case Verification</h5>
+          </div>
+          <div class="stage-content accordion-content">
+            <p class="text-on-surface-variant text-sm md:text-base leading-relaxed pb-2">Stop fraud before it enters your portfolio. AI cross-references medical records against hospital data, flags date inconsistencies, and confirms the authenticity of every case and plaintiff.</p>
+          </div>
+          <div class="stage-bar h-[2px] w-full bg-outline-variant/20 absolute bottom-0 left-0 overflow-hidden">
+            <div class="inner-bar h-full bg-primary w-0"></div>
+          </div>
+        </div>
+        <div class="stage-item relative cursor-pointer p-6 md:p-8 bg-white border-b border-outline-variant/20 transition-colors" onclick="setStageItem(2,1)">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="material-symbols-outlined text-lg text-primary">monitoring</span>
+            <h5 class="text-lg md:text-xl font-bold font-headline">Case Risk Intelligence</h5>
+          </div>
+          <div class="stage-content accordion-content">
+            <p class="text-on-surface-variant text-sm md:text-base leading-relaxed pb-2">Know the full risk profile of every case — historical outcomes, settlement timelines, and exposure indicators — so every underwriting decision is backed by data.</p>
+          </div>
+          <div class="stage-bar h-[2px] w-full bg-outline-variant/20 absolute bottom-0 left-0 overflow-hidden">
+            <div class="inner-bar h-full bg-primary w-0"></div>
+          </div>
+        </div>
+        <div class="stage-item relative cursor-pointer p-6 md:p-8 bg-white border-b border-outline-variant/20 transition-colors" onclick="setStageItem(2,2)">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="material-symbols-outlined text-lg text-primary">analytics</span>
+            <h5 class="text-lg md:text-xl font-bold font-headline">Data-Backed Collateral Valuation</h5>
+          </div>
+          <div class="stage-content accordion-content">
+            <p class="text-on-surface-variant text-sm md:text-base leading-relaxed pb-2">Benchmark pricing, not guesswork. Historical case data automatically sets valuations by case type — consistent, defensible pricing across every deal.</p>
+          </div>
+          <div class="stage-bar h-[2px] w-full bg-outline-variant/20 absolute bottom-0 left-0 overflow-hidden">
+            <div class="inner-bar h-full bg-primary w-0"></div>
+          </div>
+        </div>
+      </div>
+      <!-- Visual -->
+      <div class="w-full lg:w-1/2 h-[400px] bg-white shadow-inner flex items-center justify-center overflow-hidden" style="padding: 48px;">
+        <img src="Assets/Authentic Case Verification.svg" class="s2-vis w-full h-full object-contain" alt="Authentic Case Verification"/>
+        <img src="Assets/Case Risk Intelligence.svg" class="s2-vis w-full h-full object-contain" alt="Case Risk Intelligence" style="display:none"/>
+        <img src="Assets/Data-Backed Collateral Valuation.svg" class="s2-vis w-full h-full object-contain" alt="Data-Backed Collateral Valuation" style="display:none"/>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stage 3 — Operations (Accordion LEFT, Visual RIGHT) -->
+  <div class="max-w-7xl mx-auto px-6 md:px-8 py-20 md:py-24 border-t border-outline-variant/20">
+    <h4 class="font-headline text-xs font-bold tracking-widest uppercase text-outline mb-12 flex items-center gap-4">
+      <span class="px-2 py-0.5 bg-primary text-on-primary">Stage 3 — Operations</span>
+      <span class="h-px bg-outline-variant/30 flex-grow"></span>
+    </h4>
+    <div class="flex flex-col lg:flex-row items-stretch gap-8 md:gap-12">
+      <!-- Accordion -->
+      <div class="w-full lg:w-1/2 flex flex-col gap-0" id="s3-accordion">
+        <div class="stage-item relative cursor-pointer p-6 md:p-8 bg-white border-b border-outline-variant/20 transition-colors" onclick="setStageItem(3,0)">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="material-symbols-outlined text-lg text-primary">dashboard</span>
+            <h5 class="text-lg md:text-xl font-bold font-headline">Portfolio Performance Dashboard</h5>
+          </div>
+          <div class="stage-content accordion-content">
+            <p class="text-on-surface-variant text-sm md:text-base leading-relaxed pb-2">Every asset. Every status. In real time. Monitor the health of your entire portfolio at a glance — from filing to final payout. No blind spots, no stale data.</p>
+          </div>
+          <div class="stage-bar h-[2px] w-full bg-outline-variant/20 absolute bottom-0 left-0 overflow-hidden">
+            <div class="inner-bar h-full bg-primary w-0"></div>
+          </div>
+        </div>
+        <div class="stage-item relative cursor-pointer p-6 md:p-8 bg-white border-b border-outline-variant/20 transition-colors" onclick="setStageItem(3,1)">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="material-symbols-outlined text-lg text-primary">description</span>
+            <h5 class="text-lg md:text-xl font-bold font-headline">Streamlined Reporting</h5>
+          </div>
+          <div class="stage-content accordion-content">
+            <p class="text-on-surface-variant text-sm md:text-base leading-relaxed pb-2">Give LPs the transparency they're demanding. Automated, real-time reporting replaces manual quarterly PDFs. Build LP confidence and attract more capital — without adding headcount.</p>
+          </div>
+          <div class="stage-bar h-[2px] w-full bg-outline-variant/20 absolute bottom-0 left-0 overflow-hidden">
+            <div class="inner-bar h-full bg-primary w-0"></div>
+          </div>
+        </div>
+        <div class="stage-item relative cursor-pointer p-6 md:p-8 bg-white border-b border-outline-variant/20 transition-colors" onclick="setStageItem(3,2)">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="material-symbols-outlined text-lg text-primary">settings_applications</span>
+            <h5 class="text-lg md:text-xl font-bold font-headline">Customizable Operations</h5>
+          </div>
+          <div class="stage-content accordion-content">
+            <p class="text-on-surface-variant text-sm md:text-base leading-relaxed pb-2">Built around your workflow. Connect to AI functions, custom data integrations, and tailored features — configured to how your fund actually operates.</p>
+          </div>
+          <div class="stage-bar h-[2px] w-full bg-outline-variant/20 absolute bottom-0 left-0 overflow-hidden">
+            <div class="inner-bar h-full bg-primary w-0"></div>
+          </div>
+        </div>
+      </div>
+      <!-- Visual -->
+      <div class="w-full lg:w-1/2 h-[400px] bg-white shadow-inner flex items-center justify-center overflow-hidden" style="padding: 48px;">
+        <img src="Assets/Portfolio Performance Dashboard.svg" class="s3-vis w-full h-full object-contain" alt="Portfolio Performance Dashboard"/>
+        <img src="Assets/Streamlined reporting.svg" class="s3-vis w-full h-full object-contain" alt="Streamlined Reporting" style="display:none"/>
+        <img src="Assets/Customizable operations.svg" class="s3-vis w-full h-full object-contain" alt="Customizable Operations" style="display:none"/>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ===== 6. IMPACT STATS ===== -->
+<section class="py-24">
+  <div class="max-w-7xl mx-auto px-6 md:px-8">
+    <div class="flex flex-col md:flex-row gap-6">
+      <div class="flex-1 bg-surface-container-low p-10 md:p-12 text-center fade-in">
+        <div class="text-5xl md:text-6xl font-headline font-extrabold text-primary">350K+</div>
+        <p class="mt-4 text-xs font-bold text-outline uppercase tracking-widest">Cases verified</p>
+      </div>
+      <div class="flex-1 bg-surface-container-low p-10 md:p-12 text-center fade-in">
+        <div class="text-5xl md:text-6xl font-headline font-extrabold text-primary">$1.8B+</div>
+        <p class="mt-4 text-xs font-bold text-outline uppercase tracking-widest">Capital managed</p>
+      </div>
+      <div class="flex-1 bg-surface-container-low p-10 md:p-12 text-center fade-in">
+        <div class="text-5xl md:text-6xl font-headline font-extrabold text-primary">$4.5B+</div>
+        <p class="mt-4 text-xs font-bold text-outline uppercase tracking-widest">Collateral evaluated</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 7. COMPARISON TABLE ===== -->
+<section id="compare" class="py-24 bg-surface-container-low/50">
+  <div class="max-w-7xl mx-auto px-6 md:px-8">
+    <div class="mb-14 fade-in">
+      <span class="inline-block px-3 py-1 bg-primary text-on-primary text-[10px] font-bold tracking-[0.15em] uppercase mb-6 rounded-sm">Differentiation</span>
+      <h2 class="font-headline text-3xl md:text-4xl font-bold tracking-tight whitespace-nowrap">They start after close. We start before.</h2>
+    </div>
+
+    <div class="max-w-5xl mx-auto overflow-x-auto fade-in">
+      <div class="bg-white shadow-sm min-w-[600px]">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="bg-primary text-on-primary">
+              <th class="p-5 md:p-6 font-headline text-sm uppercase tracking-wider w-1/2"></th>
+              <th class="p-5 md:p-6 font-headline text-sm uppercase tracking-wider text-center bg-primary-container w-1/4">Bridgify</th>
+              <th class="p-5 md:p-6 font-headline text-sm uppercase tracking-wider text-center opacity-60 w-1/4">Other platforms</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Category -->
+            <tr class="bg-surface-container-low/40">
+              <td colspan="3" class="px-5 md:px-6 py-3 font-headline font-bold uppercase tracking-widest text-[10px] text-on-surface-variant">Sourcing &amp; Intelligence</td>
+            </tr>
+            <tr class="border-b border-outline-variant/15">
+              <td class="px-5 md:px-6 py-4 font-semibold text-sm md:text-base">Direct law firm sourcing</td>
+              <td class="px-5 md:px-6 py-4 text-center bg-primary-container/5"><span class="material-symbols-outlined icon-fill text-on-tertiary-container text-[22px]">check_circle</span></td>
+              <td class="px-5 md:px-6 py-4 text-center"><span class="material-symbols-outlined icon-fill text-error text-[22px]">cancel</span></td>
+            </tr>
+            <tr class="border-b border-outline-variant/15">
+              <td class="px-5 md:px-6 py-4 font-semibold text-sm md:text-base">First-hand legal news &amp; resources</td>
+              <td class="px-5 md:px-6 py-4 text-center bg-primary-container/5"><span class="material-symbols-outlined icon-fill text-on-tertiary-container text-[22px]">check_circle</span></td>
+              <td class="px-5 md:px-6 py-4 text-center"><span class="material-symbols-outlined icon-fill text-error text-[22px]">cancel</span></td>
+            </tr>
+
+            <!-- Category -->
+            <tr class="bg-surface-container-low/40">
+              <td colspan="3" class="px-5 md:px-6 py-3 font-headline font-bold uppercase tracking-widest text-[10px] text-on-surface-variant">Underwriting &amp; Verification</td>
+            </tr>
+            <tr class="border-b border-outline-variant/15">
+              <td class="px-5 md:px-6 py-4 font-semibold text-sm md:text-base">Dedicated intake team</td>
+              <td class="px-5 md:px-6 py-4 text-center bg-primary-container/5"><span class="material-symbols-outlined icon-fill text-on-tertiary-container text-[22px]">check_circle</span></td>
+              <td class="px-5 md:px-6 py-4 text-center"><span class="material-symbols-outlined icon-fill text-error text-[22px]">cancel</span></td>
+            </tr>
+            <tr class="border-b border-outline-variant/15">
+              <td class="px-5 md:px-6 py-4 font-semibold text-sm md:text-base">AI case &amp; fraud verification</td>
+              <td class="px-5 md:px-6 py-4 text-center bg-primary-container/5"><span class="material-symbols-outlined icon-fill text-on-tertiary-container text-[22px]">check_circle</span></td>
+              <td class="px-5 md:px-6 py-4 text-center"><span class="material-symbols-outlined icon-fill text-error text-[22px]">cancel</span></td>
+            </tr>
+            <tr class="border-b border-outline-variant/15">
+              <td class="px-5 md:px-6 py-4 font-semibold text-sm md:text-base">Law firm risk intelligence</td>
+              <td class="px-5 md:px-6 py-4 text-center bg-primary-container/5"><span class="material-symbols-outlined icon-fill text-on-tertiary-container text-[22px]">check_circle</span></td>
+              <td class="px-5 md:px-6 py-4 text-center"><span class="material-symbols-outlined icon-fill text-error text-[22px]">cancel</span></td>
+            </tr>
+
+            <!-- Category -->
+            <tr class="bg-surface-container-low/40">
+              <td colspan="3" class="px-5 md:px-6 py-3 font-headline font-bold uppercase tracking-widest text-[10px] text-on-surface-variant">Portfolio Operations</td>
+            </tr>
+            <tr class="border-b border-outline-variant/15">
+              <td class="px-5 md:px-6 py-4 font-semibold text-sm md:text-base">Live portfolio monitoring</td>
+              <td class="px-5 md:px-6 py-4 text-center bg-primary-container/5"><span class="material-symbols-outlined icon-fill text-on-tertiary-container text-[22px]">check_circle</span></td>
+              <td class="px-5 md:px-6 py-4 text-center"><span class="material-symbols-outlined icon-fill text-on-tertiary-container text-[22px]">check_circle</span></td>
+            </tr>
+            <tr class="border-b border-outline-variant/15">
+              <td class="px-5 md:px-6 py-4 font-semibold text-sm md:text-base">Automated LP reporting</td>
+              <td class="px-5 md:px-6 py-4 text-center bg-primary-container/5"><span class="material-symbols-outlined icon-fill text-on-tertiary-container text-[22px]">check_circle</span></td>
+              <td class="px-5 md:px-6 py-4 text-center"><span class="material-symbols-outlined icon-fill text-error text-[22px]">cancel</span></td>
+            </tr>
+            <tr>
+              <td class="px-5 md:px-6 py-4 font-semibold text-sm md:text-base">Customizable fund operations</td>
+              <td class="px-5 md:px-6 py-4 text-center bg-primary-container/5"><span class="material-symbols-outlined icon-fill text-on-tertiary-container text-[22px]">check_circle</span></td>
+              <td class="px-5 md:px-6 py-4 text-center"><span class="material-symbols-outlined icon-fill text-error text-[22px]">cancel</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 8. FINAL CTA ===== -->
+<section class="py-28 md:py-36 bg-primary text-on-primary text-center">
+  <div class="max-w-4xl mx-auto px-6 md:px-8">
+    <h2 class="font-headline text-4xl md:text-6xl font-extrabold tracking-tighter mb-12 leading-[1.1]">
+      The ultimate risk management tool for litigation finance.
+    </h2>
+    <button class="px-10 md:px-14 py-4 md:py-5 bg-surface text-primary font-bold rounded-sm text-base md:text-lg shadow-lg transition-all duration-150 hover:bg-surface-container-high hover:-translate-y-px hover:shadow-xl active:translate-y-0 active:scale-95 active:shadow-lg cursor-pointer">
+      Book a Demo
+    </button>
+  </div>
+</section>
+
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer class="w-full bg-surface-container-low border-t border-outline-variant/15 py-10 md:py-12">
+  <div class="max-w-7xl mx-auto px-6 md:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+    <div class="flex flex-col sm:flex-row items-center gap-4 md:gap-6">
+      <span class="text-lg font-headline font-extrabold text-primary">Bridgify</span>
+      <p class="text-[10px] tracking-widest uppercase text-on-surface-variant">© 2026 Bridgify. All rights reserved.</p>
+    </div>
+    <div class="flex gap-6 md:gap-8">
+      <a href="#" class="text-[10px] tracking-widest uppercase text-outline hover:text-primary transition-colors">Privacy</a>
+      <a href="#" class="text-[10px] tracking-widest uppercase text-outline hover:text-primary transition-colors">Terms</a>
+      <a href="#" class="text-[10px] tracking-widest uppercase text-outline hover:text-primary transition-colors">Disclosure</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── Mobile Menu ────────────────────────────────────────────────
+const mobileBtn = document.getElementById('mobile-menu-btn');
+const mobileMenu = document.getElementById('mobile-menu');
+const menuIcon = document.getElementById('menu-icon');
+
+mobileBtn.addEventListener('click', () => {
+  const isOpen = mobileMenu.classList.toggle('open');
+  menuIcon.textContent = isOpen ? 'close' : 'menu';
+});
+
+// Close mobile menu on link click
+mobileMenu.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    mobileMenu.classList.remove('open');
+    menuIcon.textContent = 'menu';
+  });
+});
+
+// ── Scroll Fade-In ─────────────────────────────────────────────
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// ── Problem Accordion ─────────────────────────────────────────
+let probCurrent = 0;
+let probTimer = null;
+
+function setProblemPanel(idx) {
+  const items = document.querySelectorAll('#problem-accordion .accordion-item');
+
+  items.forEach((item, i) => {
+    const content = item.querySelector('.prob-content');
+    const icon = item.querySelector('.prob-icon');
+    const bar = item.querySelector('.problem-progress-bar');
+
+    if (i === idx) {
+      content.style.maxHeight = content.scrollHeight + 'px';
+      icon.style.transform = 'rotate(45deg)';
+      bar.style.animation = 'none';
+      bar.offsetHeight; // reflow
+      bar.style.animation = 'progress-fill 8s linear forwards';
+    } else {
+      content.style.maxHeight = '0';
+      icon.style.transform = 'rotate(0deg)';
+      bar.style.animation = 'none';
+      bar.style.width = '0%';
+    }
+  });
+
+  probCurrent = idx;
+  clearTimeout(probTimer);
+  probTimer = setTimeout(() => setProblemPanel((idx + 1) % items.length), 8000);
+}
+
+// ── Stage Accordions ──────────────────────────────────────────
+const stageState = { 1: 0, 2: 0, 3: 0 };
+const stageTimers = {};
+
+function setStageItem(stage, idx) {
+  const acc = document.getElementById(`s${stage}-accordion`);
+  if (!acc) return;
+  const items = acc.querySelectorAll('.stage-item');
+
+  items.forEach((item, i) => {
+    const content = item.querySelector('.stage-content');
+    const bar = item.querySelector('.inner-bar');
+
+    if (i === idx) {
+      item.classList.add('bg-surface-container-low/30');
+      content.style.maxHeight = content.scrollHeight + 'px';
+      bar.style.animation = 'none';
+      bar.offsetHeight; // force reflow
+      bar.className = 'inner-bar h-full bg-primary progress-bar-active';
+      bar.style.animation = ''; // clear inline override so class animation plays
+    } else {
+      item.classList.remove('bg-surface-container-low/30');
+      content.style.maxHeight = '0';
+      bar.style.animation = 'none';
+      bar.className = 'inner-bar h-full bg-primary w-0';
+    }
+  });
+
+  // Swap visual image to match active accordion item
+  document.querySelectorAll(`.s${stage}-vis`).forEach((img, i) => {
+    img.style.display = i === idx ? 'block' : 'none';
+  });
+
+  stageState[stage] = idx;
+  clearTimeout(stageTimers[stage]);
+  stageTimers[stage] = setTimeout(() => {
+    setStageItem(stage, (idx + 1) % items.length);
+  }, 8000);
+}
+
+// ── Scroll-triggered init ─────────────────────────────────────
+function observeOnce(el, callback, threshold = 0.25) {
+  const obs = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) {
+      callback();
+      obs.disconnect();
+    }
+  }, { threshold });
+  obs.observe(el);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Problem accordion — start when section scrolls into view
+  observeOnce(document.getElementById('problem-accordion'), () => setProblemPanel(0));
+
+  // Stage feature rows — each starts independently when its accordion scrolls into view
+  [1, 2, 3].forEach(s => {
+    observeOnce(document.getElementById(`s${s}-accordion`), () => setStageItem(s, 0));
+  });
+});
+</script>
+</body>
+</html>
