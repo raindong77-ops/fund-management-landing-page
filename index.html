@@ -106,6 +106,15 @@
     .marquee-track { animation-duration: 28s; gap: 80px; }
   }
 
+  /* Nav glassmorphism on scroll */
+  nav.nav-scrolled {
+    background: rgba(249, 250, 245, 0.40);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    transition: background 0.3s ease, backdrop-filter 0.3s ease;
+  }
+  nav { transition: background 0.3s ease; }
+
   /* Stage accordion item backgrounds — active=white, inactive=surface-container-low */
   .stage-item { background-color: #f3f4f0; }
   .stage-item.active { background-color: #ffffff; }
@@ -183,23 +192,23 @@
     <div class="absolute right-0 top-0 h-full w-28 z-10 pointer-events-none" style="background: linear-gradient(to left, #f9faf5, transparent);"></div>
 
     <div class="marquee-track">
-      <img src="SVG/logos/bay-point-law.png"                  alt="Bay Point Law"                  style="height:44px;width:auto;filter:grayscale(1) opacity(0.65);">
-      <img src="SVG/logos/chaffin-luhana.png"                 alt="Chaffin Luhana"                 style="height:32px;width:auto;filter:grayscale(1) opacity(0.65);">
-      <img src="SVG/logos/contingency-capital.png"            alt="Contingency Capital"            style="height:44px;width:auto;filter:grayscale(1) opacity(0.65);">
-      <img src="SVG/logos/armadillo.png"                      alt="Armadillo Litigation Funding"   style="height:32px;width:auto;filter:grayscale(1) opacity(0.65);">
-      <img src="SVG/logos/environmental-litigation-group.png" alt="Environmental Litigation Group" style="height:44px;width:auto;filter:grayscale(1) opacity(0.65);">
-      <img src="SVG/logos/awko-law.png"                       alt="AWKO Law"                       style="height:44px;width:auto;filter:grayscale(1) opacity(0.65);">
-      <img src="SVG/logos/kerberos-capital.png"               alt="Kerberos Capital Management"    style="height:32px;width:auto;filter:grayscale(1) opacity(0.65);">
-      <img src="SVG/logos/ventura-law.png"                    alt="Ventura Law"                    style="height:32px;width:auto;filter:grayscale(1) opacity(0.65);">
+      <div style="display:flex;align-items:center;justify-content:center;height:44px;"><img src="SVG/logos/bay-point-law.png"                  alt="Bay Point Law"                  style="max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;filter:grayscale(1) opacity(0.65);"></div>
+      <div style="display:flex;align-items:center;justify-content:center;height:44px;"><img src="SVG/logos/chaffin-luhana.png"                 alt="Chaffin Luhana"                 style="max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;filter:grayscale(1) opacity(0.65);"></div>
+      <div style="display:flex;align-items:center;justify-content:center;height:52px;"><img src="SVG/logos/contingency-capital.png"            alt="Contingency Capital"            style="max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;filter:grayscale(1) opacity(0.65);"></div>
+      <div style="display:flex;align-items:center;justify-content:center;height:58px;"><img src="SVG/logos/armadillo.png"                      alt="Armadillo Litigation Funding"   style="max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;filter:grayscale(1) opacity(0.65);"></div>
+      <div style="display:flex;align-items:center;justify-content:center;height:52px;"><img src="SVG/logos/environmental-litigation-group.png" alt="Environmental Litigation Group" style="max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;filter:grayscale(1) opacity(0.65);"></div>
+      <div style="display:flex;align-items:center;justify-content:center;height:60px;"><img src="SVG/logos/awko-law.png"                       alt="AWKO Law"                       style="max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;filter:grayscale(1) opacity(0.65);"></div>
+      <div style="display:flex;align-items:center;justify-content:center;height:42px;"><img src="SVG/logos/kerberos-capital.png"               alt="Kerberos Capital Management"    style="max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;filter:grayscale(1) opacity(0.65);"></div>
+      <div style="display:flex;align-items:center;justify-content:center;height:42px;"><img src="SVG/logos/ventura-law.png"                    alt="Ventura Law"                    style="max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;filter:grayscale(1) opacity(0.65);"></div>
       <!-- Duplicated for seamless loop -->
-      <img src="SVG/logos/bay-point-law.png"                  alt="Bay Point Law"                  style="height:44px;width:auto;filter:grayscale(1) opacity(0.65);">
-      <img src="SVG/logos/chaffin-luhana.png"                 alt="Chaffin Luhana"                 style="height:32px;width:auto;filter:grayscale(1) opacity(0.65);">
-      <img src="SVG/logos/contingency-capital.png"            alt="Contingency Capital"            style="height:44px;width:auto;filter:grayscale(1) opacity(0.65);">
-      <img src="SVG/logos/armadillo.png"                      alt="Armadillo Litigation Funding"   style="height:32px;width:auto;filter:grayscale(1) opacity(0.65);">
-      <img src="SVG/logos/environmental-litigation-group.png" alt="Environmental Litigation Group" style="height:44px;width:auto;filter:grayscale(1) opacity(0.65);">
-      <img src="SVG/logos/awko-law.png"                       alt="AWKO Law"                       style="height:44px;width:auto;filter:grayscale(1) opacity(0.65);">
-      <img src="SVG/logos/kerberos-capital.png"               alt="Kerberos Capital Management"    style="height:32px;width:auto;filter:grayscale(1) opacity(0.65);">
-      <img src="SVG/logos/ventura-law.png"                    alt="Ventura Law"                    style="height:32px;width:auto;filter:grayscale(1) opacity(0.65);">
+      <div style="display:flex;align-items:center;justify-content:center;height:44px;"><img src="SVG/logos/bay-point-law.png"                  alt="Bay Point Law"                  style="max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;filter:grayscale(1) opacity(0.65);"></div>
+      <div style="display:flex;align-items:center;justify-content:center;height:44px;"><img src="SVG/logos/chaffin-luhana.png"                 alt="Chaffin Luhana"                 style="max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;filter:grayscale(1) opacity(0.65);"></div>
+      <div style="display:flex;align-items:center;justify-content:center;height:52px;"><img src="SVG/logos/contingency-capital.png"            alt="Contingency Capital"            style="max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;filter:grayscale(1) opacity(0.65);"></div>
+      <div style="display:flex;align-items:center;justify-content:center;height:58px;"><img src="SVG/logos/armadillo.png"                      alt="Armadillo Litigation Funding"   style="max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;filter:grayscale(1) opacity(0.65);"></div>
+      <div style="display:flex;align-items:center;justify-content:center;height:52px;"><img src="SVG/logos/environmental-litigation-group.png" alt="Environmental Litigation Group" style="max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;filter:grayscale(1) opacity(0.65);"></div>
+      <div style="display:flex;align-items:center;justify-content:center;height:60px;"><img src="SVG/logos/awko-law.png"                       alt="AWKO Law"                       style="max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;filter:grayscale(1) opacity(0.65);"></div>
+      <div style="display:flex;align-items:center;justify-content:center;height:42px;"><img src="SVG/logos/kerberos-capital.png"               alt="Kerberos Capital Management"    style="max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;filter:grayscale(1) opacity(0.65);"></div>
+      <div style="display:flex;align-items:center;justify-content:center;height:42px;"><img src="SVG/logos/ventura-law.png"                    alt="Ventura Law"                    style="max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;filter:grayscale(1) opacity(0.65);"></div>
     </div>
   </div>
 </section>
@@ -802,9 +811,11 @@ function setStageItem(stage, idx) {
 
 // ── Nav Scroll Active State ────────────────────────────────────
 const navLinks = document.querySelectorAll('.nav-link');
+const navEl = document.querySelector('nav');
 const navSectionIds = ['market', 'platform', 'compare'];
 
 function updateNavActive() {
+  navEl.classList.toggle('nav-scrolled', window.scrollY > 10);
   const scrollY = window.scrollY + 120;
   let activeId = null;
   navSectionIds.forEach(id => {
